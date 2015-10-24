@@ -150,7 +150,6 @@ Task("Copy-Files")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    CopyFileToDirectory(buildDir + "/Cake.Core.dll", binDir);
     CopyFileToDirectory(buildDir + "/Cake.AWS.EC2.dll", binDir);
     CopyFileToDirectory(buildDir + "/Cake.AWS.EC2.pdb", binDir);
     
@@ -163,6 +162,7 @@ Task("Copy-Files")
 
 	CopyDirectory("./tools/",  "./test/tools/");
 	CreateDirectory("./test/tools/Addins/Cake.AWS.EC2/lib/net45/");
+
 	CopyFileToDirectory(buildDir + "/Cake.AWS.EC2.dll", "./test/tools/Addins/Cake.AWS.EC2/lib/net45/");
 	
     CopyFileToDirectory("./lib/AWSSDK.Core.dll", "./test/tools/Addins/Cake.AWS.EC2/lib/net45/");
