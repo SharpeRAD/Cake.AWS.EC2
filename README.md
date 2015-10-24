@@ -1,7 +1,7 @@
 # Cake.AWS.EC2
 Cake Build addon for configuring Amazon Elastic Computing 
 
-[![Build status](https://ci.appveyor.com/api/projects/status/w86dpcm8320m79ru?svg=true)](https://ci.appveyor.com/project/PhillipSharpe/cake-aws-elasticloadbalancing)
+[![Build status](https://ci.appveyor.com/api/projects/status/1x1hficb72giaan7?svg=true)](https://ci.appveyor.com/project/PhillipSharpe/cake-aws-ec2)
 
 [![cakebuild.net](https://img.shields.io/badge/WWW-cakebuild.net-blue.svg)](http://cakebuild.net/)
 
@@ -13,6 +13,7 @@ Cake Build addon for configuring Amazon Elastic Computing
 
 * Start Instances
 * Stop Intances
+* Terminate Intances
 
 
 
@@ -52,6 +53,12 @@ Task("Stop-Instances")
     StopEC2Instances("instance1,instance2,instance3");
 });
 
+Task("Terminate-Instances")
+    .Description("Terminates an EC2 instances.")
+    .Does(() =>
+{
+    TerminateEC2Instances("instance1,instance2,instance3");
+});
 
 RunTarget("Start-Instances");
 ```
