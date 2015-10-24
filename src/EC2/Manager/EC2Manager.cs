@@ -101,6 +101,7 @@ namespace Cake.AWS.EC2
 
 
 
+                //Create Request
                 AmazonEC2Client client = this.CreateClient(settings);
                 StartInstancesRequest request = new StartInstancesRequest();
 
@@ -111,6 +112,7 @@ namespace Cake.AWS.EC2
 
 
 
+                //Check Response
                 StartInstancesResponse response = client.StartInstances(request);
 
                 if (response.HttpStatusCode == HttpStatusCode.OK)
@@ -142,8 +144,9 @@ namespace Cake.AWS.EC2
                     throw new ArgumentNullException("instances");
                 }
 
+                
 
-
+                //Create Request
                 AmazonEC2Client client = this.CreateClient(settings);
                 StopInstancesRequest request = new StopInstancesRequest();
 
@@ -154,6 +157,7 @@ namespace Cake.AWS.EC2
 
 
 
+                //Check Response
                 StopInstancesResponse response = client.StopInstances(request);
 
                 if (response.HttpStatusCode == HttpStatusCode.OK)
@@ -164,6 +168,51 @@ namespace Cake.AWS.EC2
                 else
                 {
                     _Log.Error("Failed to stop instances '{0}'", string.Join(",", instances));
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// Shuts down one or more instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds.
+            /// Terminated instances remain visible after termination (for approximately one hour). By default, Amazon EC2 deletes all EBS volumes that were attached when the instance
+            /// launched. Volumes attached after instance launch continue running. You can stop, start, and terminate EBS-backed instances. You can only terminate
+            /// instance store-backed instances. What happens to an instance differs if you stop it or terminate it. For example, when you stop an instance, the root device and
+            /// any other devices attached to the instance persist. When you terminate an instance, any attached EBS volumes with the DeleteOnTermination block device mapping parameter
+            /// set to true are automatically deleted. For more information about the differences between stopping and terminating instances, see Instance Lifecycle in the Amazon EC2 User Guide.
+            /// </summary>
+            /// <param name="instances">A list of instance IDs to be stopped.</param>
+            /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+            public bool TerminateInstances(IList<string> instances, EC2Settings settings)
+            {
+                if ((instances == null) || (instances.Count == 0))
+                {
+                    throw new ArgumentNullException("instances");
+                }
+
+
+
+                //Create Request
+                AmazonEC2Client client = this.CreateClient(settings);
+                TerminateInstancesRequest request = new TerminateInstancesRequest();
+
+                foreach (string instance in instances)
+                {
+                    request.InstanceIds.Add(instance);
+                }
+
+
+
+                //Check Response
+                TerminateInstancesResponse response = client.TerminateInstances(request);
+
+                if (response.HttpStatusCode == HttpStatusCode.OK)
+                {
+                    _Log.Verbose("Successfully terminated instances '{0}'", string.Join(",", instances));
+                    return true;
+                }
+                else
+                {
+                    _Log.Error("Failed to terminate instances '{0}'", string.Join(",", instances));
                     return false;
                 }
             }

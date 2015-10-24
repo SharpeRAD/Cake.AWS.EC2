@@ -35,6 +35,20 @@ namespace Cake.AWS.EC2
             /// <param name="instances">A list of instance IDs to be stopped.</param>
             /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
             bool StopInstances(IList<string> instances, EC2Settings settings);
+
+
+
+            /// <summary>
+            /// Shuts down one or more instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds.
+            /// Terminated instances remain visible after termination (for approximately one hour). By default, Amazon EC2 deletes all EBS volumes that were attached when the instance
+            /// launched. Volumes attached after instance launch continue running. You can stop, start, and terminate EBS-backed instances. You can only terminate
+            /// instance store-backed instances. What happens to an instance differs if you stop it or terminate it. For example, when you stop an instance, the root device and
+            /// any other devices attached to the instance persist. When you terminate an instance, any attached EBS volumes with the DeleteOnTermination block device mapping parameter
+            /// set to true are automatically deleted. For more information about the differences between stopping and terminating instances, see Instance Lifecycle in the Amazon EC2 User Guide.
+            /// </summary>
+            /// <param name="instances">A list of instance IDs to be stopped.</param>
+            /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+            bool TerminateInstances(IList<string> instances, EC2Settings settings);
         #endregion
     }
 }
