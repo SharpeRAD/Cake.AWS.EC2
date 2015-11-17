@@ -216,6 +216,53 @@ namespace Cake.AWS.EC2
                     return false;
                 }
             }
+
+
+
+            /// <summary>
+            /// Describes the status of one or more instances. Instance status includes the following components:
+            /// Status checks - Amazon EC2 performs status checks on running EC2 instances to identify hardware and software issues. For more information, see Status Checks
+            /// for Your Instances and Troubleshooting Instances with Failed Status Checks in the Amazon Elastic Compute Cloud User Guide.
+            /// Scheduled events - Amazon EC2 can schedule events (such as reboot, stop, or terminate) for your instances related to hardware issues, software updates, or system maintenance.
+            /// For more information, see Scheduled Events for Your Instances in the Amazon Elastic Compute Cloud User Guide.
+            /// Instance state - You can manage your instances from the moment you launch them through their termination. For more information, see Instance Lifecycle in the Amazon Elastic Compute Cloud User Guide.
+            /// </summary>
+            /// <param name="instances">A list of instance IDs to be stopped.</param>
+            /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+            public IList<InstanceStatus> DescribeInstances(IList<string> instances, EC2Settings settings)
+            {
+                if ((instances == null) || (instances.Count == 0))
+                {
+                    throw new ArgumentNullException("instances");
+                }
+
+
+
+                //Create Request
+                AmazonEC2Client client = this.CreateClient(settings);
+                DescribeInstanceStatusRequest request = new DescribeInstanceStatusRequest();
+
+                foreach (string instance in instances)
+                {
+                    request.InstanceIds.Add(instance);
+                }
+
+
+
+                //Check Response
+                DescribeInstanceStatusResponse response = client.DescribeInstanceStatus(request);
+
+                if (response.HttpStatusCode == HttpStatusCode.OK)
+                {
+                    _Log.Verbose("Successfully terminated instances '{0}'", string.Join(",", instances));
+                    return response.InstanceStatuses;
+                }
+                else
+                {
+                    _Log.Error("Failed to terminate instances '{0}'", string.Join(",", instances));
+                    return new List<InstanceStatus>();
+                }
+            }
         #endregion
     }
 }

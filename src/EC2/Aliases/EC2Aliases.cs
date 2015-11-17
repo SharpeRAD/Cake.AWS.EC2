@@ -6,6 +6,8 @@
     using Cake.Core.IO;
     using Cake.Core.Annotations;
 
+    using Amazon.EC2;
+    using Amazon.EC2.Model;
     using Amazon.EC2.Util;
 #endregion
 
@@ -16,6 +18,7 @@ namespace Cake.AWS.EC2
     [CakeAliasCategory("AWS")]
     [CakeNamespaceImport("Amazon")]
     [CakeNamespaceImport("Amazon.EC2")]
+    [CakeNamespaceImport("Amazon.EC2.Model")]
     public static class EC2Aliases
     {
         private static IEC2Manager CreateManager(this ICakeContext context)
@@ -165,6 +168,180 @@ namespace Cake.AWS.EC2
         public static bool TerminateEC2Instances(this ICakeContext context, IList<string> instances, EC2Settings settings)
         {
             return context.CreateManager().TerminateInstances(instances, settings);
+        }
+
+
+
+        /// <summary>
+        /// Describes the status of the current instance. Instance status includes the following components:
+        /// Status checks - Amazon EC2 performs status checks on running EC2 instances to identify hardware and software issues. For more information, see Status Checks
+        /// for Your Instances and Troubleshooting Instances with Failed Status Checks in the Amazon Elastic Compute Cloud User Guide.
+        /// Scheduled events - Amazon EC2 can schedule events (such as reboot, stop, or terminate) for your instances related to hardware issues, software updates, or system maintenance.
+        /// For more information, see Scheduled Events for Your Instances in the Amazon Elastic Compute Cloud User Guide.
+        /// Instance state - You can manage your instances from the moment you launch them through their termination. For more information, see Instance Lifecycle in the Amazon Elastic Compute Cloud User Guide.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static InstanceStatus DescribeInstance(this ICakeContext context, EC2Settings settings)
+        {
+            return context.DescribeInstance(EC2Metadata.InstanceId, settings);
+        }
+
+        /// <summary>
+        /// Describes the status of a single instance. Instance status includes the following components:
+        /// Status checks - Amazon EC2 performs status checks on running EC2 instances to identify hardware and software issues. For more information, see Status Checks
+        /// for Your Instances and Troubleshooting Instances with Failed Status Checks in the Amazon Elastic Compute Cloud User Guide.
+        /// Scheduled events - Amazon EC2 can schedule events (such as reboot, stop, or terminate) for your instances related to hardware issues, software updates, or system maintenance.
+        /// For more information, see Scheduled Events for Your Instances in the Amazon Elastic Compute Cloud User Guide.
+        /// Instance state - You can manage your instances from the moment you launch them through their termination. For more information, see Instance Lifecycle in the Amazon Elastic Compute Cloud User Guide.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static InstanceStatus DescribeInstance(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            IList<InstanceStatus> status = context.CreateManager().DescribeInstances(new List<string>() { instance }, settings);
+
+            if (status.Count > 0)
+            {
+                return status[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Describes the status of one or more instances. Instance status includes the following components:
+        /// Status checks - Amazon EC2 performs status checks on running EC2 instances to identify hardware and software issues. For more information, see Status Checks
+        /// for Your Instances and Troubleshooting Instances with Failed Status Checks in the Amazon Elastic Compute Cloud User Guide.
+        /// Scheduled events - Amazon EC2 can schedule events (such as reboot, stop, or terminate) for your instances related to hardware issues, software updates, or system maintenance.
+        /// For more information, see Scheduled Events for Your Instances in the Amazon Elastic Compute Cloud User Guide.
+        /// Instance state - You can manage your instances from the moment you launch them through their termination. For more information, see Instance Lifecycle in the Amazon Elastic Compute Cloud User Guide.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instances">A list of instance IDs to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static IList<InstanceStatus> DescribeInstances(this ICakeContext context, string instances, EC2Settings settings)
+        {
+            return context.CreateManager().DescribeInstances(instances.Split(','), settings);
+        }
+
+        /// <summary>
+        /// Describes the status of one or more instances. Instance status includes the following components:
+        /// Status checks - Amazon EC2 performs status checks on running EC2 instances to identify hardware and software issues. For more information, see Status Checks
+        /// for Your Instances and Troubleshooting Instances with Failed Status Checks in the Amazon Elastic Compute Cloud User Guide.
+        /// Scheduled events - Amazon EC2 can schedule events (such as reboot, stop, or terminate) for your instances related to hardware issues, software updates, or system maintenance.
+        /// For more information, see Scheduled Events for Your Instances in the Amazon Elastic Compute Cloud User Guide.
+        /// Instance state - You can manage your instances from the moment you launch them through their termination. For more information, see Instance Lifecycle in the Amazon Elastic Compute Cloud User Guide.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instances">A list of instance IDs to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static IList<InstanceStatus> DescribeInstances(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        {
+            return context.CreateManager().DescribeInstances(instances, settings);
+        }
+
+
+
+        /// <summary>
+        /// Check if the selected instance is currently pending.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static bool IsInstancePending(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            InstanceStatus status = context.DescribeInstance(instance, settings);
+
+            return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Pending.Value));
+        }
+
+        /// <summary>
+        /// Check if the selected instance is currently running.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static bool IsInstanceRunning(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            InstanceStatus status = context.DescribeInstance(instance, settings);
+
+            return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Running.Value));
+        }
+
+        /// <summary>
+        /// Check if the selected instance is currently shutting down.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static bool IsInstanceShuttingDown(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            InstanceStatus status = context.DescribeInstance(instance, settings);
+
+            return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.ShuttingDown.Value));
+        }
+
+        /// <summary>
+        /// Check if the selected instance is currently stopped.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static bool IsInstanceStopped(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            InstanceStatus status = context.DescribeInstance(instance, settings);
+
+            return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Stopped.Value));
+        }
+
+        /// <summary>
+        /// Check if the selected instance is currently stopping.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static bool IsInstanceStopping(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            InstanceStatus status = context.DescribeInstance(instance, settings);
+
+            return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Stopping.Value));
+        }
+
+        /// <summary>
+        /// Check if the selected instance is currently terminated.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static bool IsInstanceTerminated(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            InstanceStatus status = context.DescribeInstance(instance, settings);
+
+            return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Terminated.Value));
         }
     }
 }

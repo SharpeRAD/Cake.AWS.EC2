@@ -39,25 +39,46 @@ or directly in your build script via a cake addin:
 #addin "Cake.AWS.EC2"
 
 
+
+EC2Settings settings = Context.CreateEC2Settings();
+
+
+
 Task("Start-Instances")
     .Description("Starts an EC2 instances.")
     .Does(() =>
 {
-    StartEC2Instances("instance1,instance2,instance3");
+    StartEC2Instances("instance1,instance2,instance3", settings);
 });
 
 Task("Stop-Instances")
     .Description("Stops an EC2 instances.")
     .Does(() =>
 {
-    StopEC2Instances("instance1,instance2,instance3");
+    StopEC2Instances("instance1,instance2,instance3", settings);
 });
 
 Task("Terminate-Instances")
     .Description("Terminates an EC2 instances.")
     .Does(() =>
 {
-    TerminateEC2Instances("instance1,instance2,instance3");
+    TerminateEC2Instances("instance1,instance2,instance3", settings);
+});
+
+
+
+Task("Instance-Running")
+    .Description("Checks an instance is running.")
+    .Does(() =>
+{
+    IsInstanceRunning("instance1", settings);
+});
+
+Task("Instance-Stopped")
+    .Description("Checks an instance is stopped.")
+    .Does(() =>
+{
+    IsInstanceStopped("instance1", settings);
 });
 
 RunTarget("Start-Instances");

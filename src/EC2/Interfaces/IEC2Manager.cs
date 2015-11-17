@@ -1,5 +1,7 @@
 ﻿#region Using Statements
     using System.Collections.Generic;
+
+    using Amazon.EC2.Model;
 #endregion
 
 
@@ -49,6 +51,20 @@ namespace Cake.AWS.EC2
             /// <param name="instances">A list of instance IDs to be stopped.</param>
             /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
             bool TerminateInstances(IList<string> instances, EC2Settings settings);
+
+
+
+            /// <summary>
+            /// Describes the status of one or more instances. Instance status includes the following components:
+            /// Status checks - Amazon EC2 performs status checks on running EC2 instances to identify hardware and software issues. For more information, see Status Checks
+            /// for Your Instances and Troubleshooting Instances with Failed Status Checks in the Amazon Elastic Compute Cloud User Guide.
+            /// Scheduled events - Amazon EC2 can schedule events (such as reboot, stop, or terminate) for your instances related to hardware issues, software updates, or system maintenance.
+            /// For more information, see Scheduled Events for Your Instances in the Amazon Elastic Compute Cloud User Guide.
+            /// Instance state - You can manage your instances from the moment you launch them through their termination. For more information, see Instance Lifecycle in the Amazon Elastic Compute Cloud User Guide.
+            /// </summary>
+            /// <param name="instances">A list of instance IDs to be stopped.</param>
+            /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+            IList<InstanceStatus> DescribeInstances(IList<string> instances, EC2Settings settings);
         #endregion
     }
 }
