@@ -38,8 +38,6 @@ or directly in your build script via a cake addin:
 ```csharp
 #addin "Cake.AWS.EC2"
 
-
-
 EC2Settings settings = Context.CreateEC2Settings();
 
 

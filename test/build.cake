@@ -23,7 +23,7 @@ Task("Start-Instances")
 });
 
 Task("Stop-Instances")
-    .IsDependentOn("Register-Instances")
+    .IsDependentOn("Start-Instances")
     .Description("Stops an EC2 instances.")
     .Does(() =>
 {
