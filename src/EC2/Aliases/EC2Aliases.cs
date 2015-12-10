@@ -15,6 +15,9 @@
 
 namespace Cake.AWS.EC2
 {
+    /// <summary>
+    /// Contains Cake aliases for configuring Amazon Elastic Computing instances
+    /// </summary>
     [CakeAliasCategory("AWS")]
     [CakeNamespaceImport("Amazon")]
     [CakeNamespaceImport("Amazon.EC2")]

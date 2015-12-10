@@ -41,8 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AWSSDK.ElasticLoadBalancing.dll</HintPath>
     </Reference>
-    <Reference Include="Cake.Core">
-      <HintPath>..\packages\Cake.Core.0.4.1\lib\net45\Cake.Core.dll</HintPath>
+    <Reference Include="Cake.Core, Version=0.6.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cake.Core.0.6.4\lib\net45\Cake.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,6 +56,7 @@
     <Compile Include="Extensions\Context\CakeContextExtensions.cs" />
     <Compile Include="Extensions\Context\CakeEnvironmentExtensions.cs" />
     <Compile Include="Extensions\Settings\EC2SettingsExtensions.cs" />
+    <Compile Include="Properties\Namespaces.cs" />
     <Compile Include="Settings\EC2Settings.cs" />
     <Compile Include="Interfaces\IEC2Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
