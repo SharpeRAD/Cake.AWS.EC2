@@ -19,7 +19,7 @@ namespace Cake.AWS.EC2
         /// Helper method to get the AWS Credentials from environment variables
         /// </summary>
         /// <param name="environment">The cake environment.</param>
-        /// <returns>A new <see cref="EC2Settings"/> instance to be used in calls to the <see cref="ILoadBalancingManager"/>.</returns>
+        /// <returns>A new <see cref="EC2Settings"/> instance to be used in calls to the <see cref="IEC2Manager"/>.</returns>
         public static EC2Settings CreateEC2Settings(this ICakeEnvironment environment)
         {
             if (environment == null)

@@ -1,3 +1,6 @@
+### New in 0.0.5 (Released 2015/12/28)
+* Add XML documentation
+
 ### New in 0.0.4 (Released 2015/12/10)
 * Add Cake namespace docs
 * Update Cake.Core reference
@@ -6,7 +9,7 @@
 * Describe Instance
 
 ### New in 0.0.2 (Released 2015/10/26)
-* Terminate Instance00000000
+* Terminate Instance
 
 ### New in 0.0.1 (Released 2015/10/14)
 * First release.

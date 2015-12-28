@@ -152,7 +152,8 @@ Task("Copy-Files")
 {
     CopyFileToDirectory(buildDir + "/Cake.AWS.EC2.dll", binDir);
     CopyFileToDirectory(buildDir + "/Cake.AWS.EC2.pdb", binDir);
-    
+    CopyFileToDirectory(buildDir + "/Cake.AWS.EC2.xml", binDir);
+
     CopyFileToDirectory("./lib/AWSSDK.Core.dll", binDir);
     CopyFileToDirectory("./lib/AWSSDK.EC2.dll", binDir);
 

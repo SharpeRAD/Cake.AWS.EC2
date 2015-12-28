@@ -21,6 +21,7 @@
       <file src="AWSSDK.Core.dll" target="lib/net45" />
       <file src="AWSSDK.EC2.dll" target="lib/net45" />
       <file src="Cake.AWS.EC2.dll" target="lib/net45" />
+      <file src="Cake.AWS.EC2.xml" target="lib/net45" />
       <file src="LICENSE" />
    </files>
 </package>
