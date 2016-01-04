@@ -19,6 +19,8 @@ Cake Build addon for configuring Amazon Elastic Computing
 
 ## Referencing
 
+[![NuGet Version](http://img.shields.io/nuget/v/Cake.AWS.EC2.svg?style=flat)](https://www.nuget.org/packages/Cake.AWS.EC2/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Cake.AWS.EC2.svg?style=flat)](https://www.nuget.org/packages/Cake.AWS.EC2/)
+
 Cake.AWS.EC2 is available as a nuget package from the package manager console:
 
 ```csharp
