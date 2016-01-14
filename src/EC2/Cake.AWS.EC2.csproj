@@ -39,10 +39,6 @@
     <Reference Include="AWSSDK.EC2">
       <HintPath>..\..\lib\AWSSDK.EC2.dll</HintPath>
     </Reference>
-    <Reference Include="AWSSDK.ElasticLoadBalancing">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\AWSSDK.ElasticLoadBalancing.dll</HintPath>
-    </Reference>
     <Reference Include="Cake.Core, Version=0.6.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Cake.Core.0.6.4\lib\net45\Cake.Core.dll</HintPath>
       <Private>True</Private>

@@ -1,3 +1,6 @@
+### New in 0.0.6 (Released 2016/01/14)
+* Remove incorrect AWS reference
+
 ### New in 0.0.5 (Released 2015/12/28)
 * Add XML documentation
 
