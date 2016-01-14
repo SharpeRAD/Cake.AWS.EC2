@@ -1,3 +1,6 @@
+### New in 0.0.7 (Released 2016/01/14)
+* Force new build
+
 ### New in 0.0.6 (Released 2016/01/14)
 * Remove incorrect AWS reference
 
