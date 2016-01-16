@@ -32,6 +32,41 @@ namespace Cake.AWS.EC2
 
 
         /// <summary>
+        ///   The metadata sent to the instance.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static string GetUserData(this ICakeContext context)
+        {
+            return EC2Metadata.UserData;
+        }
+
+        /// <summary>
+        ///   The ID of this instance
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static string GetInstanceId(this ICakeContext context)
+        {
+            return EC2Metadata.InstanceId;
+        }
+
+        /// <summary>
+        ///   The Availability Zone in which the instance launched.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static string GetAvailabilityZone(this ICakeContext context)
+        {
+            return EC2Metadata.AvailabilityZone;
+        }
+
+
+
+        /// <summary>
         /// Starts an Amazon EBS-backed AMI that you've previously stopped. Instances that use Amazon EBS volumes as their root devices can be quickly stopped
         /// and started. When an instance is stopped, the compute resources are released and you are not billed for hourly instance usage. However, your root partition
         /// Amazon EBS volume remains, continues to persist your data, and you are charged for Amazon EBS volume usage. You can restart your instance at any time. Each

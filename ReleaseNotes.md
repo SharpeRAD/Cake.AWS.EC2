@@ -1,3 +1,7 @@
+### New in 0.0.8 (Released 2016/01/16)
+* Fixed SolutionInfo link
+* Metadata aliases
+
 ### New in 0.0.7 (Released 2016/01/14)
 * Force new build
 
