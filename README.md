@@ -39,7 +39,7 @@ Cake.AWS.EC2 is available as a nuget package from the package manager console:
 Install-Package Cake.AWS.EC2
 ```
 
-or directly in your build script via a cake addin:
+or directly in your build script via a cake addin directive:
 
 ```csharp
 #addin "Cake.AWS.EC2"
