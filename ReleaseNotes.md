@@ -1,3 +1,6 @@
+### New in 0.0.9 (Released 2016/04/29)
+* Match the environment variables used in the AWS SDK
+
 ### New in 0.0.8 (Released 2016/01/16)
 * Fixed SolutionInfo link
 * Metadata aliases

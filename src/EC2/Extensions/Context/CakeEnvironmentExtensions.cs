@@ -29,8 +29,8 @@ namespace Cake.AWS.EC2
 
             EC2Settings settings = new EC2Settings()
             {
-                AccessKey = environment.GetEnvironmentVariable("AWS_ACCESSKEY"),
-                SecretKey = environment.GetEnvironmentVariable("AWS_SECRETKEY")
+                AccessKey = environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID"),
+                SecretKey = environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY")
             };
 
 
