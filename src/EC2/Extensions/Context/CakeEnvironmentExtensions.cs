@@ -4,6 +4,7 @@
     using Cake.Core;
 
     using Amazon;
+    using Amazon.Runtime;
 #endregion
 
 
@@ -27,16 +28,22 @@ namespace Cake.AWS.EC2
                 throw new ArgumentNullException("environment");
             }
 
-            EC2Settings settings = new EC2Settings()
+            EC2Settings settings = new EC2Settings();
+
+            //AWS Fallback
+            AWSCredentials creds = FallbackCredentialsFactory.GetCredentials();
+            if (creds != null)
             {
-                AccessKey = environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID"),
-                SecretKey = environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY")
-            };
+                ImmutableCredentials imute = creds.GetCredentials();
+                if (creds != null)
+                {
+                    settings.AccessKey = imute.AccessKey;
+                    settings.SecretKey = imute.SecretKey;
+                }
+            }
 
-
-
+            //Environment Variables
             string region = environment.GetEnvironmentVariable("AWS_REGION");
-
             if (!String.IsNullOrEmpty(region))
             {
                 settings.Region = RegionEndpoint.GetBySystemName(region);

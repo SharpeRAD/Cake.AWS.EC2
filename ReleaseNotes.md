@@ -1,3 +1,9 @@
+### New in 0.1.0 (Released 2016/05/20)
+* Use AWS FallbackCredentialsFactory
+* Add nuget dependencies
+* Update all packages
+* Setup / Teardown with context
+
 ### New in 0.0.9 (Released 2016/04/29)
 * Match the environment variables used in the AWS SDK
 
