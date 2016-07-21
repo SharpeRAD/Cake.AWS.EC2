@@ -26,6 +26,7 @@ Cake Build addin for configuring Amazon Elastic Computing
 * Start Instances
 * Stop Instances
 * Terminate Instances
+* Uses AWS fallback credentials (app.config / web.config file, SDK store or credentials file, environment variables, instance profile)
 
 
 
@@ -52,7 +53,12 @@ or directly in your build script via a cake addin directive:
 ```csharp
 #addin "Cake.AWS.EC2"
 
-EC2Settings settings = Context.CreateEC2Settings();
+EC2Settings settings = new UploadSettings()
+    {
+        AccessKey = "blah",
+        SecretKey = "blah",
+        Region = RegionEndpoint.EUWest1
+    };
 
 
 
@@ -86,11 +92,11 @@ Task("Instance-Running")
     IsInstanceRunning("instance1", settings);
 });
 
-Task("Instance-Stopped")
-    .Description("Checks an instance is stopped.")
+Task("Instance-Stopped-Fallback")
+    .Description("Checks an instance is stopped, using AWS Fallback credential")
     .Does(() =>
 {
-    IsInstanceStopped("instance1", settings);
+    IsInstanceStopped("instance1", Context.CreateEC2Settings());
 });
 
 RunTarget("Start-Instances");
