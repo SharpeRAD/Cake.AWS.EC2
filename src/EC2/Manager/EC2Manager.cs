@@ -66,20 +66,29 @@ namespace Cake.AWS.EC2
                 {
                     throw new ArgumentNullException("settings");
                 }
-                if (String.IsNullOrEmpty(settings.AccessKey))
-                {
-                    throw new ArgumentNullException("settings.AccessKey");
-                }
-                if (String.IsNullOrEmpty(settings.SecretKey))
-                {
-                    throw new ArgumentNullException("settings.SecretKey");
-                }
+                
                 if (settings.Region == null)
                 {
                     throw new ArgumentNullException("settings.Region");
                 }
 
-                return new AmazonEC2Client(settings.AccessKey, settings.SecretKey, settings.Region);
+                if (settings.Credentials == null)
+                {
+                    if (String.IsNullOrEmpty(settings.AccessKey))
+                    {
+                        throw new ArgumentNullException("settings.AccessKey");
+                    }
+                    if (String.IsNullOrEmpty(settings.SecretKey))
+                    {
+                        throw new ArgumentNullException("settings.SecretKey");
+                    }
+
+                    return new AmazonEC2Client(settings.AccessKey, settings.SecretKey, settings.Region);
+                }
+                else
+                {
+                    return new AmazonEC2Client(settings.Credentials, settings.Region);
+                }
             }
 
 

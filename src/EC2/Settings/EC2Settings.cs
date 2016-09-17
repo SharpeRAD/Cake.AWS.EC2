@@ -1,5 +1,6 @@
 ﻿#region Using Statements
     using Amazon;
+    using Amazon.Runtime;
 #endregion
 
 
@@ -25,7 +26,7 @@ namespace Cake.AWS.EC2
 
 
 
-        #region Properties (3)
+        #region Properties (4)
             /// <summary>
             /// The AWS Access Key ID
             /// </summary>
@@ -35,6 +36,8 @@ namespace Cake.AWS.EC2
             /// The AWS Secret Access Key.
             /// </summary>
             public string SecretKey { get; set; }
+        
+            internal AWSCredentials Credentials { get; set; }
 
 
 
