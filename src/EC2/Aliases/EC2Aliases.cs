@@ -1,5 +1,6 @@
 ﻿#region Using Statements
     using System.Net;
+    using System.Linq;
     using System.Collections.Generic;
 
     using Cake.Core;
@@ -288,6 +289,77 @@ namespace Cake.AWS.EC2
         public static IList<InstanceStatus> DescribeInstances(this ICakeContext context, IList<string> instances, EC2Settings settings)
         {
             return context.CreateManager().DescribeInstances(instances, settings);
+        }
+        
+
+
+        /// <summary>
+        /// Describes one or more of the tags for your EC2 resources.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static IList<TagDescription> DescribeTags(this ICakeContext context, EC2Settings settings)
+        {
+            return context.DescribeTags(EC2Metadata.InstanceId, settings);
+        }
+
+        /// <summary>
+        /// Describes one or more of the tags for your EC2 resources.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static IList<TagDescription> DescribeTags(this ICakeContext context, string instance, EC2Settings settings)
+        {
+            return context.CreateManager().DescribeTags(new List<string>() { instance }, settings);
+        }
+
+        /// <summary>
+        /// Describes one or more of the tags for your EC2 resources.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instances">A list of instance IDs to check.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static IList<TagDescription> DescribeTags(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        {
+            return context.CreateManager().DescribeTags(instances, settings);
+        }
+                
+
+
+        /// <summary>
+        /// Describes one or more of the tags for your EC2 resources.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="key">The key of the tag.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static string GetTagValue(this ICakeContext context, string key, EC2Settings settings)
+        {
+            return  context.GetTagValue(EC2Metadata.InstanceId, key, settings);
+        }
+
+        /// <summary>
+        /// Describes one or more of the tags for your EC2 resources.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instance">A instance ID to check.</param>
+        /// <param name="key">The key of the tag.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static string GetTagValue(this ICakeContext context, string instance, string key, EC2Settings settings)
+        {
+            IList<TagDescription> tags = context.CreateManager().DescribeTags(new List<string>() { instance }, settings);
+
+            return tags.Where(t => t.Key == key).Select(x => x.Value).FirstOrDefault();
         }
 
 

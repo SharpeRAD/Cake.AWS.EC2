@@ -272,6 +272,48 @@ namespace Cake.AWS.EC2
                     return new List<InstanceStatus>();
                 }
             }
+        
+
+
+            /// <summary>
+            /// Describes one or more of the tags for your EC2 resources.
+            /// </summary>
+            /// <param name="instances">A list of instance IDs to be stopped.</param>
+            /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+            public IList<TagDescription> DescribeTags(IList<string> instances, EC2Settings settings)
+            {
+                if ((instances == null) || (instances.Count == 0))
+                {
+                    throw new ArgumentNullException("instances");
+                }
+
+
+
+                //Create Request
+                AmazonEC2Client client = this.CreateClient(settings);
+                DescribeTagsRequest request = new DescribeTagsRequest();
+
+                List<string> list = new List<string>();
+                list.AddRange(instances);
+
+                request.Filters.Add(new Filter("resource-id", list));
+
+
+
+                //Check Response
+                DescribeTagsResponse response = client.DescribeTags(request);
+
+                if (response.HttpStatusCode == HttpStatusCode.OK)
+                {
+                    _Log.Verbose("Successfully terminated instances '{0}'", string.Join(",", instances));
+                    return response.Tags;
+                }
+                else
+                {
+                    _Log.Error("Failed to terminate instances '{0}'", string.Join(",", instances));
+                    return new List<TagDescription>();
+                }
+            }
         #endregion
     }
 }

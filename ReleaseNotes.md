@@ -1,3 +1,6 @@
+### New in 0.1.2 (Released 2016/12/19)
+* DescribeTags alias
+
 ### New in 0.1.1 (Released 2016/09/17)
 * Correct use of fallback credentials
 

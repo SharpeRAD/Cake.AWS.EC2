@@ -65,6 +65,15 @@ namespace Cake.AWS.EC2
             /// <param name="instances">A list of instance IDs to be stopped.</param>
             /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
             IList<InstanceStatus> DescribeInstances(IList<string> instances, EC2Settings settings);
+
+
+
+            /// <summary>
+            /// Describes one or more of the tags for your EC2 resources.
+            /// </summary>
+            /// <param name="instances">A list of instance IDs to be stopped.</param>
+            /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+            IList<TagDescription> DescribeTags(IList<string> instances, EC2Settings settings);
         #endregion
     }
 }
