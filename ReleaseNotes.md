@@ -1,3 +1,6 @@
+### New in 0.1.3 (Released 2017/01/04)
+* Update packages
+
 ### New in 0.1.2 (Released 2016/12/19)
 * DescribeTags alias
 
