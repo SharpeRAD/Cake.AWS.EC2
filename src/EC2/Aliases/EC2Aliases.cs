@@ -9,7 +9,7 @@
 
     using Amazon.EC2;
     using Amazon.EC2.Model;
-    using Amazon.EC2.Util;
+    using Amazon.Util;
 #endregion
 
 
@@ -40,7 +40,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static string GetUserData(this ICakeContext context)
         {
-            return EC2Metadata.UserData;
+            return EC2InstanceMetadata.UserData;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static string GetInstanceId(this ICakeContext context)
         {
-            return EC2Metadata.InstanceId;
+            return EC2InstanceMetadata.InstanceId;
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static string GetAvailabilityZone(this ICakeContext context)
         {
-            return EC2Metadata.AvailabilityZone;
+            return EC2InstanceMetadata.AvailabilityZone;
         }
 
 
@@ -115,7 +115,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static bool StopEC2Instance(this ICakeContext context, EC2Settings settings)
         {
-            return context.CreateManager().StopInstances(EC2Metadata.InstanceId.Split(','), settings);
+            return context.CreateManager().StopInstances(EC2InstanceMetadata.InstanceId.Split(','), settings);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static bool TerminateEC2Instance(this ICakeContext context, EC2Settings settings)
         {
-            return context.CreateManager().TerminateInstances(EC2Metadata.InstanceId.Split(','), settings);
+            return context.CreateManager().TerminateInstances(EC2InstanceMetadata.InstanceId.Split(','), settings);
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static InstanceStatus DescribeInstance(this ICakeContext context, EC2Settings settings)
         {
-            return context.DescribeInstance(EC2Metadata.InstanceId, settings);
+            return context.DescribeInstance(EC2InstanceMetadata.InstanceId, settings);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static IList<TagDescription> DescribeTags(this ICakeContext context, EC2Settings settings)
         {
-            return context.DescribeTags(EC2Metadata.InstanceId, settings);
+            return context.DescribeTags(EC2InstanceMetadata.InstanceId, settings);
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace Cake.AWS.EC2
         [CakeAliasCategory("EC2")]
         public static string GetTagValue(this ICakeContext context, string key, EC2Settings settings)
         {
-            return  context.GetTagValue(EC2Metadata.InstanceId, key, settings);
+            return  context.GetTagValue(EC2InstanceMetadata.InstanceId, key, settings);
         }
 
         /// <summary>
