@@ -1,3 +1,9 @@
+### New in 0.2.0 (Released 2017/10/07)
+* [Improvement] Updated Cake reference to v0.22.0
+* [Improvement] Moved to net461 for Cake compatibility
+* [Improvement] Upgraded solution to vs2017
+* [Improvement] New .net core based build scripts
+
 ### New in 0.1.3 (Released 2017/01/04)
 * Update packages
 

@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-      <id>Cake.AWS.EC2</id>
-      <version>0.0.0</version>
-      <authors>Phillip Sharpe</authors>
-      <owners>Phillip Sharpe</owners>
-      <title>Cake.AWS.EC2</title>
-      <description>Cake Build addon for configuring Amazon Elastic Compute Cloud.</description>
-      <summary>Amazon EC2 addon for cake build.</summary>
-      <licenseUrl>https://github.com/SharpeRAD/Cake.AWS.EC2/LICENSE</licenseUrl>
-      <projectUrl>https://github.com/SharpeRAD/Cake.AWS.EC2</projectUrl>
-      <iconUrl>https://raw.githubusercontent.com/cake-build/graphics/master/png/cake-medium.png</iconUrl>
-      <requireLicenseAcceptance>false</requireLicenseAcceptance>
-      <copyright>Copyright (c) Phillip Sharpe 2015</copyright>
-      <releaseNotes>Initial Release</releaseNotes>
-      <tags>Cake Script Build Amazon EC2</tags>
-   
-       <dependencies>
-           <dependency id="Cake.Core" version="0.17.0" />
-           <dependency id="AWSSDK.Core" version="3.3.7.1" />
-           <dependency id="AWSSDK.EC2" version="3.3.4.4" />
-       </dependencies>
-   </metadata>
+    <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+        <id>Cake.AWS.EC2</id>
+        <version>0.0.0</version>
+        <authors>Phillip Sharpe</authors>
+        <owners>Phillip Sharpe</owners>
+        <title>Cake.AWS.EC2</title>
+        <description>Cake Build addon for configuring Amazon Elastic Compute Cloud.</description>
+        <summary>Amazon EC2 addon for cake build.</summary>
+        <licenseUrl>https://github.com/SharpeRAD/Cake.AWS.EC2/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/SharpeRAD/Cake.AWS.EC2</projectUrl>
+        <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <copyright>Copyright (c) Phillip Sharpe 2015</copyright>
+        <releaseNotes>Initial Release</releaseNotes>
+        <tags>Cake Script Build Amazon EC2</tags>
 
-   <files>
-      <file src="AWSSDK.Core.dll" target="lib/net45" />
-      <file src="AWSSDK.EC2.dll" target="lib/net45" />
-      <file src="Cake.AWS.EC2.dll" target="lib/net45" />
-      <file src="Cake.AWS.EC2.xml" target="lib/net45" />
-      <file src="LICENSE" />
-   </files>
+        <dependencies>
+            <dependency id="Cake.Core" version="0.22.0" />
+            <dependency id="AWSSDK.Core" version="3.3.17.9" />
+            <dependency id="AWSSDK.EC2" version="3.3.29" />
+        </dependencies>
+    </metadata>
+
+    <files>
+        <file src="net461/Cake.AWS.EC2.dll" target="lib/net461" />
+        <file src="net461/Cake.AWS.EC2.xml" target="lib/net461" />
+
+        <file src="net461/AWSSDK.Core.dll" target="lib/net461" />
+        <file src="net461/AWSSDK.EC2.dll" target="lib/net461" />
+
+        <file src="LICENSE" />
+    </files>
 </package>
