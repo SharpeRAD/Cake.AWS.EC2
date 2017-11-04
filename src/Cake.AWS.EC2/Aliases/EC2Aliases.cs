@@ -2,6 +2,8 @@
 using System.Net;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Cake.Core;
 using Cake.Core.IO;
@@ -78,9 +80,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool StartEC2Instances(this ICakeContext context, string instances, EC2Settings settings)
+        public static async Task<bool> StartEC2Instances(this ICakeContext context, string instances, EC2Settings settings)
         {
-            return context.CreateManager().StartInstances(instances.Split(','), settings);
+            return await context.CreateManager().StartInstances(instances.Split(','), settings);
         }
 
         /// <summary>
@@ -94,9 +96,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool StartEC2Instances(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        public static async Task<bool> StartEC2Instances(this ICakeContext context, IList<string> instances, EC2Settings settings)
         {
-            return context.CreateManager().StartInstances(instances, settings);
+            return await context.CreateManager().StartInstances(instances, settings);
         }
 
 
@@ -113,9 +115,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool StopEC2Instance(this ICakeContext context, EC2Settings settings)
+        public static async Task<bool> StopEC2Instance(this ICakeContext context, EC2Settings settings)
         {
-            return context.CreateManager().StopInstances(EC2InstanceMetadata.InstanceId.Split(','), settings);
+            return await context.CreateManager().StopInstances(EC2InstanceMetadata.InstanceId.Split(','), settings);
         }
 
         /// <summary>
@@ -131,9 +133,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool StopEC2Instances(this ICakeContext context, string instances, EC2Settings settings)
+        public static async Task<bool> StopEC2Instances(this ICakeContext context, string instances, EC2Settings settings)
         {
-            return context.CreateManager().StopInstances(instances.Split(','), settings);
+            return await context.CreateManager().StopInstances(instances.Split(','), settings);
         }
 
         /// <summary>
@@ -149,9 +151,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool StopEC2Instances(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        public static async Task<bool> StopEC2Instances(this ICakeContext context, IList<string> instances, EC2Settings settings)
         {
-            return context.CreateManager().StopInstances(instances, settings);
+            return await context.CreateManager().StopInstances(instances, settings);
         }
 
 
@@ -168,27 +170,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool TerminateEC2Instance(this ICakeContext context, EC2Settings settings)
+        public static async Task<bool> TerminateEC2Instance(this ICakeContext context, EC2Settings settings)
         {
-            return context.CreateManager().TerminateInstances(EC2InstanceMetadata.InstanceId.Split(','), settings);
-        }
-
-        /// <summary>
-        /// Shuts down one or more instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds.
-        /// Terminated instances remain visible after termination (for approximately one hour). By default, Amazon EC2 deletes all EBS volumes that were attached when the instance
-        /// launched. Volumes attached after instance launch continue running. You can stop, start, and terminate EBS-backed instances. You can only terminate
-        /// instance store-backed instances. What happens to an instance differs if you stop it or terminate it. For example, when you stop an instance, the root device and
-        /// any other devices attached to the instance persist. When you terminate an instance, any attached EBS volumes with the DeleteOnTermination block device mapping parameter
-        /// set to true are automatically deleted. For more information about the differences between stopping and terminating instances, see Instance Lifecycle in the Amazon EC2 User Guide.
-        /// </summary>
-        /// <param name="context">The cake context.</param>
-        /// <param name="instances">A list of instance IDs to be stopped.</param>
-        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        [CakeMethodAlias]
-        [CakeAliasCategory("EC2")]
-        public static bool TerminateEC2Instances(this ICakeContext context, string instances, EC2Settings settings)
-        {
-            return context.CreateManager().TerminateInstances(instances.Split(','), settings);
+            return await context.CreateManager().TerminateInstances(EC2InstanceMetadata.InstanceId.Split(','), settings);
         }
 
         /// <summary>
@@ -204,9 +188,27 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool TerminateEC2Instances(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        public static async Task<bool> TerminateEC2Instances(this ICakeContext context, string instances, EC2Settings settings)
         {
-            return context.CreateManager().TerminateInstances(instances, settings);
+            return await context.CreateManager().TerminateInstances(instances.Split(','), settings);
+        }
+
+        /// <summary>
+        /// Shuts down one or more instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds.
+        /// Terminated instances remain visible after termination (for approximately one hour). By default, Amazon EC2 deletes all EBS volumes that were attached when the instance
+        /// launched. Volumes attached after instance launch continue running. You can stop, start, and terminate EBS-backed instances. You can only terminate
+        /// instance store-backed instances. What happens to an instance differs if you stop it or terminate it. For example, when you stop an instance, the root device and
+        /// any other devices attached to the instance persist. When you terminate an instance, any attached EBS volumes with the DeleteOnTermination block device mapping parameter
+        /// set to true are automatically deleted. For more information about the differences between stopping and terminating instances, see Instance Lifecycle in the Amazon EC2 User Guide.
+        /// </summary>
+        /// <param name="context">The cake context.</param>
+        /// <param name="instances">A list of instance IDs to be stopped.</param>
+        /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("EC2")]
+        public static async Task<bool> TerminateEC2Instances(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        {
+            return await context.CreateManager().TerminateInstances(instances, settings);
         }
 
 
@@ -223,9 +225,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static InstanceStatus DescribeInstance(this ICakeContext context, EC2Settings settings)
+        public static async Task<InstanceStatus> DescribeInstance(this ICakeContext context, EC2Settings settings)
         {
-            return context.DescribeInstance(EC2InstanceMetadata.InstanceId, settings);
+            return await context.DescribeInstance(EC2InstanceMetadata.InstanceId, settings);
         }
 
         /// <summary>
@@ -241,9 +243,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static InstanceStatus DescribeInstance(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<InstanceStatus> DescribeInstance(this ICakeContext context, string instance, EC2Settings settings)
         {
-            IList<InstanceStatus> status = context.CreateManager().DescribeInstances(new List<string>() { instance }, settings);
+            IList<InstanceStatus> status = await context.CreateManager().DescribeInstances(new List<string>() { instance }, settings);
 
             if (status.Count > 0)
             {
@@ -268,9 +270,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static IList<InstanceStatus> DescribeInstances(this ICakeContext context, string instances, EC2Settings settings)
+        public static async Task<IList<InstanceStatus>> DescribeInstances(this ICakeContext context, string instances, EC2Settings settings)
         {
-            return context.CreateManager().DescribeInstances(instances.Split(','), settings);
+            return await context.CreateManager().DescribeInstances(instances.Split(','), settings);
         }
 
         /// <summary>
@@ -286,9 +288,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static IList<InstanceStatus> DescribeInstances(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        public static async Task<IList<InstanceStatus>> DescribeInstances(this ICakeContext context, IList<string> instances, EC2Settings settings)
         {
-            return context.CreateManager().DescribeInstances(instances, settings);
+            return await context.CreateManager().DescribeInstances(instances, settings);
         }
         
 
@@ -300,9 +302,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static IList<TagDescription> DescribeTags(this ICakeContext context, EC2Settings settings)
+        public static async Task<IList<TagDescription>> DescribeTags(this ICakeContext context, EC2Settings settings)
         {
-            return context.DescribeTags(EC2InstanceMetadata.InstanceId, settings);
+            return await context.DescribeTags(EC2InstanceMetadata.InstanceId, settings);
         }
 
         /// <summary>
@@ -313,9 +315,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static IList<TagDescription> DescribeTags(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<IList<TagDescription>> DescribeTags(this ICakeContext context, string instance, EC2Settings settings)
         {
-            return context.CreateManager().DescribeTags(new List<string>() { instance }, settings);
+            return await context.CreateManager().DescribeTags(new List<string>() { instance }, settings);
         }
 
         /// <summary>
@@ -326,9 +328,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static IList<TagDescription> DescribeTags(this ICakeContext context, IList<string> instances, EC2Settings settings)
+        public static async Task<IList<TagDescription>> DescribeTags(this ICakeContext context, IList<string> instances, EC2Settings settings)
         {
-            return context.CreateManager().DescribeTags(instances, settings);
+            return await context.CreateManager().DescribeTags(instances, settings);
         }
                 
 
@@ -341,9 +343,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static string GetTagValue(this ICakeContext context, string key, EC2Settings settings)
+        public static async Task<string> GetTagValue(this ICakeContext context, string key, EC2Settings settings)
         {
-            return  context.GetTagValue(EC2InstanceMetadata.InstanceId, key, settings);
+            return await context.GetTagValue(EC2InstanceMetadata.InstanceId, key, settings);
         }
 
         /// <summary>
@@ -355,9 +357,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static string GetTagValue(this ICakeContext context, string instance, string key, EC2Settings settings)
+        public static async Task<string> GetTagValue(this ICakeContext context, string instance, string key, EC2Settings settings)
         {
-            IList<TagDescription> tags = context.CreateManager().DescribeTags(new List<string>() { instance }, settings);
+            IList<TagDescription> tags = await context.CreateManager().DescribeTags(new List<string>() { instance }, settings);
 
             return tags.Where(t => t.Key == key).Select(x => x.Value).FirstOrDefault();
         }
@@ -372,9 +374,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool IsInstancePending(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<bool> IsInstancePending(this ICakeContext context, string instance, EC2Settings settings)
         {
-            InstanceStatus status = context.DescribeInstance(instance, settings);
+            InstanceStatus status = await context.DescribeInstance(instance, settings);
 
             return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Pending.Value));
         }
@@ -387,9 +389,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool IsInstanceRunning(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<bool> IsInstanceRunning(this ICakeContext context, string instance, EC2Settings settings)
         {
-            InstanceStatus status = context.DescribeInstance(instance, settings);
+            InstanceStatus status = await context.DescribeInstance(instance, settings);
 
             return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Running.Value));
         }
@@ -402,9 +404,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool IsInstanceShuttingDown(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<bool> IsInstanceShuttingDown(this ICakeContext context, string instance, EC2Settings settings)
         {
-            InstanceStatus status = context.DescribeInstance(instance, settings);
+            InstanceStatus status = await context.DescribeInstance(instance, settings);
 
             return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.ShuttingDown.Value));
         }
@@ -417,9 +419,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool IsInstanceStopped(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<bool> IsInstanceStopped(this ICakeContext context, string instance, EC2Settings settings)
         {
-            InstanceStatus status = context.DescribeInstance(instance, settings);
+            InstanceStatus status = await context.DescribeInstance(instance, settings);
 
             return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Stopped.Value));
         }
@@ -432,9 +434,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool IsInstanceStopping(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<bool> IsInstanceStopping(this ICakeContext context, string instance, EC2Settings settings)
         {
-            InstanceStatus status = context.DescribeInstance(instance, settings);
+            InstanceStatus status = await context.DescribeInstance(instance, settings);
 
             return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Stopping.Value));
         }
@@ -447,9 +449,9 @@ namespace Cake.AWS.EC2
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("EC2")]
-        public static bool IsInstanceTerminated(this ICakeContext context, string instance, EC2Settings settings)
+        public static async Task<bool> IsInstanceTerminated(this ICakeContext context, string instance, EC2Settings settings)
         {
-            InstanceStatus status = context.DescribeInstance(instance, settings);
+            InstanceStatus status = await context.DescribeInstance(instance, settings);
 
             return ((status != null) && (status.InstanceState.Name.Value == InstanceStateName.Terminated.Value));
         }

@@ -31,17 +31,17 @@ Setup(context =>
 
 Task("Start-Instances")
     .Description("Starts an EC2 instances.")
-    .Does(() =>
+    .Does(async () =>
 {
-    StartEC2Instances("instance1");
+    await StartEC2Instances("instance1");
 });
 
 Task("Stop-Instances")
     .IsDependentOn("Start-Instances")
     .Description("Stops an EC2 instances.")
-    .Does(() =>
+    .Does(async () =>
 {
-    StopEC2Instances("instance1");
+    await StopEC2Instances("instance1");
 });
 
 

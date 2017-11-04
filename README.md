@@ -64,39 +64,39 @@ EC2Settings settings = new UploadSettings()
 
 Task("Start-Instances")
     .Description("Starts an EC2 instances.")
-    .Does(() =>
+    .Does(async () =>
 {
-    StartEC2Instances("instance1,instance2,instance3", settings);
+    await StartEC2Instances("instance1,instance2,instance3", settings);
 });
 
 Task("Stop-Instances")
     .Description("Stops an EC2 instances.")
-    .Does(() =>
+    .Does(async () =>
 {
-    StopEC2Instances("instance1,instance2,instance3", settings);
+    await StopEC2Instances("instance1,instance2,instance3", settings);
 });
 
 Task("Terminate-Instances")
     .Description("Terminates an EC2 instances.")
-    .Does(() =>
+    .Does(async () =>
 {
-    TerminateEC2Instances("instance1,instance2,instance3", settings);
+    await TerminateEC2Instances("instance1,instance2,instance3", settings);
 });
 
 
 
 Task("Instance-Running")
     .Description("Checks an instance is running.")
-    .Does(() =>
+    .Does(async () =>
 {
-    IsInstanceRunning("instance1", settings);
+    await IsInstanceRunning("instance1", settings);
 });
 
 Task("Instance-Stopped-Fallback")
     .Description("Checks an instance is stopped, using AWS Fallback credential")
-    .Does(() =>
+    .Does(async () =>
 {
-    IsInstanceStopped("instance1", Context.CreateEC2Settings());
+    await IsInstanceStopped("instance1", Context.CreateEC2Settings());
 });
 
 RunTarget("Start-Instances");

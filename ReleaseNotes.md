@@ -1,3 +1,7 @@
+### New in 0.3.0 (Released 2017/11/04)
+* [Improvement] Move to net46 and netstandard1.6
+* [Improvement] Change to async methods
+
 ### New in 0.2.0 (Released 2017/10/07)
 * [Improvement] Updated Cake reference to v0.22.0
 * [Improvement] Moved to net461 for Cake compatibility

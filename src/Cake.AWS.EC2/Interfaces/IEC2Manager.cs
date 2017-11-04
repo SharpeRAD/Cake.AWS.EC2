@@ -1,5 +1,7 @@
 ﻿#region Using Statements
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Amazon.EC2.Model;
 #endregion
@@ -22,7 +24,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be started.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        bool StartInstances(IList<string> instances, EC2Settings settings);
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        Task<bool> StartInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken));
 
 
 
@@ -36,7 +39,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        bool StopInstances(IList<string> instances, EC2Settings settings);
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        Task<bool> StopInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken));
 
 
 
@@ -50,7 +54,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        bool TerminateInstances(IList<string> instances, EC2Settings settings);
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        Task<bool> TerminateInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken));
 
 
 
@@ -64,7 +69,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        IList<InstanceStatus> DescribeInstances(IList<string> instances, EC2Settings settings);
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        Task<IList<InstanceStatus>> DescribeInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken));
 
 
 
@@ -73,7 +79,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        IList<TagDescription> DescribeTags(IList<string> instances, EC2Settings settings);
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        Task<IList<TagDescription>> DescribeTags(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken));
         #endregion
     }
 }

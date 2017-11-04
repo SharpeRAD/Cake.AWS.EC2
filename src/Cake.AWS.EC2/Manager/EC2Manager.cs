@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 using Cake.Core;
 using Cake.Core.Diagnostics;
@@ -101,7 +103,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be started.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        public bool StartInstances(IList<string> instances, EC2Settings settings)
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public async Task<bool> StartInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken))
         {
             if ((instances == null) || (instances.Count == 0))
             {
@@ -122,7 +125,7 @@ namespace Cake.AWS.EC2
 
 
             //Check Response
-            StartInstancesResponse response = client.StartInstances(request);
+            StartInstancesResponse response = await client.StartInstancesAsync(request, cancellationToken);
 
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -146,7 +149,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        public bool StopInstances(IList<string> instances, EC2Settings settings)
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public async Task<bool> StopInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken))
         {
             if ((instances == null) || (instances.Count == 0))
             {
@@ -167,7 +171,7 @@ namespace Cake.AWS.EC2
 
 
             //Check Response
-            StopInstancesResponse response = client.StopInstances(request);
+            StopInstancesResponse response = await client.StopInstancesAsync(request, cancellationToken);
 
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -191,7 +195,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        public bool TerminateInstances(IList<string> instances, EC2Settings settings)
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public async Task<bool> TerminateInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken))
         {
             if ((instances == null) || (instances.Count == 0))
             {
@@ -212,7 +217,7 @@ namespace Cake.AWS.EC2
 
 
             //Check Response
-            TerminateInstancesResponse response = client.TerminateInstances(request);
+            TerminateInstancesResponse response = await client.TerminateInstancesAsync(request, cancellationToken);
 
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -238,7 +243,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        public IList<InstanceStatus> DescribeInstances(IList<string> instances, EC2Settings settings)
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public async Task<IList<InstanceStatus>> DescribeInstances(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken))
         {
             if ((instances == null) || (instances.Count == 0))
             {
@@ -259,7 +265,7 @@ namespace Cake.AWS.EC2
 
 
             //Check Response
-            DescribeInstanceStatusResponse response = client.DescribeInstanceStatus(request);
+            DescribeInstanceStatusResponse response = await client.DescribeInstanceStatusAsync(request, cancellationToken);
 
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -272,7 +278,7 @@ namespace Cake.AWS.EC2
                 return new List<InstanceStatus>();
             }
         }
-        
+
 
 
         /// <summary>
@@ -280,7 +286,8 @@ namespace Cake.AWS.EC2
         /// </summary>
         /// <param name="instances">A list of instance IDs to be stopped.</param>
         /// <param name="settings">The <see cref="EC2Settings"/> used during the request to AWS.</param>
-        public IList<TagDescription> DescribeTags(IList<string> instances, EC2Settings settings)
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public async Task<IList<TagDescription>> DescribeTags(IList<string> instances, EC2Settings settings, CancellationToken cancellationToken = default(CancellationToken))
         {
             if ((instances == null) || (instances.Count == 0))
             {
@@ -301,7 +308,7 @@ namespace Cake.AWS.EC2
 
 
             //Check Response
-            DescribeTagsResponse response = client.DescribeTags(request);
+            DescribeTagsResponse response = await client.DescribeTagsAsync(request, cancellationToken);
 
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
