@@ -85,7 +85,14 @@ namespace Cake.AWS.EC2
                     throw new ArgumentNullException("settings.SecretKey");
                 }
 
-                return new AmazonEC2Client(settings.AccessKey, settings.SecretKey, settings.Region);
+                if (!String.IsNullOrEmpty(settings.SessionToken))
+                {
+                    return new AmazonEC2Client(settings.AccessKey, settings.SecretKey, settings.SessionToken, settings.Region);
+                }
+                else
+                {
+                    return new AmazonEC2Client(settings.AccessKey, settings.SecretKey, settings.Region);
+                }
             }
             else
             {

@@ -1,3 +1,6 @@
+### New in 0.3.1 (Released 2018/01/26)
+* [Improvement] Add SessionToken to settings
+
 ### New in 0.3.0 (Released 2017/11/04)
 * [Improvement] Move to net46 and netstandard1.6
 * [Improvement] Change to async methods

@@ -47,6 +47,27 @@ namespace Cake.AWS.EC2
             return settings;
         }
 
+        /// <summary>
+        /// Specifies the AWS Session Token to use as credentials.
+        /// </summary>
+        /// <param name="settings">The EC2 settings.</param>
+        /// <param name="token">The AWS Session Token.</param>
+        /// <returns>The same <see cref="EC2Settings"/> instance so that multiple calls can be chained.</returns>
+        public static EC2Settings SetSessionToken(this EC2Settings settings, string token)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new ArgumentNullException("token");
+            }
+
+            settings.SessionToken = token;
+            return settings;
+        }
+
 
 
         /// <summary>
