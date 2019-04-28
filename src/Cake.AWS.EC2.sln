@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{409BC6DA
 		..\.gitignore = ..\.gitignore
 		..\appveyor.yml = ..\appveyor.yml
 		..\build.cake = ..\build.cake
+		..\cake.config = ..\cake.config
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{04DD68ED-2973-4B5E-964B-9FA607BB218D}"
@@ -29,9 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{3A8E8897
 		..\nuspec\Cake.AWS.EC2.nuspec = ..\nuspec\Cake.AWS.EC2.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.AWS.EC2", "Cake.AWS.EC2\Cake.AWS.EC2.csproj", "{7443C4B4-121A-4FC4-9BF3-6FDE40B245B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.AWS.EC2", "Cake.AWS.EC2\Cake.AWS.EC2.csproj", "{7443C4B4-121A-4FC4-9BF3-6FDE40B245B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.AWS.EC2.Tests", "Cake.AWS.EC2.Tests\Cake.AWS.EC2.Tests.csproj", "{330A3FCC-1049-4093-84FE-F6A8AD1B0FA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.AWS.EC2.Tests", "Cake.AWS.EC2.Tests\Cake.AWS.EC2.Tests.csproj", "{330A3FCC-1049-4093-84FE-F6A8AD1B0FA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
